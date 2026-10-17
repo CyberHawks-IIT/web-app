@@ -1,0 +1,52 @@
+@model CyberHawksPortal.Models.User
+@{
+    ViewData["Title"] = "Hawk Store";
+    var items = ViewData["Items"] as List<CyberHawksPortal.Models.StoreItem> ?? new();
+    var vouchers = (int)(ViewData["Vouchers"] ?? 0);
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Dashboard" asp-action="Index">Dashboard</a> / Store</div>
+        <h1>The Hawk Store</h1>
+        <p>Spend your hard-earned Hawk Points on club swag and perks.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container">
+        @if (TempData["Msg"] != null) { <div class="ch-alert ok">@TempData["Msg"]</div> }
+
+        <div class="ch-split" style="align-items:stretch;margin-bottom:28px">
+            <div class="ch-card"><div class="ch-card-body">
+                <h3 class="mt-0">Balance</h3>
+                <p style="font-size:34px;font-weight:800;color:var(--scarlet);margin:0">@Model.Points <span style="font-size:15px;color:var(--muted);font-weight:600">Hawk Points</span></p>
+                <p class="ch-muted">Vouchers held: <b>@vouchers</b></p>
+            </div></div>
+            <div class="ch-card"><div class="ch-card-body">
+                <h3 class="mt-0">New-member welcome voucher</h3>
+                <p>Every member may claim one complimentary Nationals Hoodie voucher. One per member — we trust you.</p>
+                <form method="post" asp-action="Redeem">
+                    <button type="submit" class="ch-btn ch-btn-primary">🎁 Claim welcome voucher</button>
+                </form>
+            </div></div>
+        </div>
+
+        <h3>Merchandise</h3>
+        <div class="ch-grid cols-4">
+            @foreach (var it in items)
+            {
+                <div class="ch-card"><div class="ch-card-body">
+                    <h3 style="font-size:17px">@it.Name</h3>
+                    <p>@it.Description</p>
+                    <p class="ch-muted mb-0" style="font-size:13px">@it.Cost pts · @it.Stock in stock</p>
+                    <form method="post" asp-action="Buy" style="margin-top:12px;display:flex;gap:8px">
+                        <input type="hidden" name="itemId" value="@it.StoreItemId" />
+                        <input type="number" name="quantity" value="1" style="width:70px;padding:7px;border:1px solid var(--line);border-radius:7px" />
+                        <button type="submit" class="ch-btn ch-btn-ghost">Buy</button>
+                    </form>
+                </div></div>
+            }
+        </div>
+    </div>
+</section>

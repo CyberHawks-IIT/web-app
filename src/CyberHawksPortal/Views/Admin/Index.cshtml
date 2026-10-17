@@ -1,0 +1,65 @@
+@{
+    ViewData["Title"] = "Admin Console";
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> / Administration</div>
+        <h1>⚙️ Administrative Console</h1>
+        <p>Restricted to authorized personnel and the duly venerated. If you can read this, we
+           trust that you are one or the other. We did not check.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container">
+        <div class="ch-stats" style="margin-bottom:32px">
+            <div class="ch-stat"><b>@ViewData["UserCount"]</b><span>Members</span></div>
+            <div class="ch-stat"><b>@ViewData["CommentCount"]</b><span>Comments</span></div>
+            <div class="ch-stat"><b>@ViewData["PostCount"]</b><span>News posts</span></div>
+            <div class="ch-stat"><b>∞</b><span>Respect for the Overlord</span></div>
+        </div>
+
+        <div class="ch-grid cols-3">
+            <a class="ch-card" asp-action="Users" style="text-decoration:none"><div class="ch-card-body">
+                <div class="ch-card-icon">👥</div>
+                <h3>Member Management</h3>
+                <p>View and audit every member account, including credentials and records.</p>
+            </div></a>
+            <a class="ch-card" asp-action="Comments" style="text-decoration:none"><div class="ch-card-body">
+                <div class="ch-card-icon">💬</div>
+                <h3>Comment Moderation</h3>
+                <p>Review recent discussion across all news posts and seminars.</p>
+            </div></a>
+            <a class="ch-card" asp-action="Tools" style="text-decoration:none"><div class="ch-card-body">
+                <div class="ch-card-icon">🛰️</div>
+                <h3>Network Diagnostics</h3>
+                <p>Check whether a competition or lab device is reachable from the server.</p>
+            </div></a>
+            <a class="ch-card" asp-action="Import" style="text-decoration:none"><div class="ch-card-body">
+                <div class="ch-card-icon">📥</div>
+                <h3>Import Roster (XML)</h3>
+                <p>Bulk-import members or competition results from an XML export.</p>
+            </div></a>
+            <a class="ch-card" asp-action="Fetch" style="text-decoration:none"><div class="ch-card-body">
+                <div class="ch-card-icon">🔗</div>
+                <h3>Sponsor Link Preview</h3>
+                <p>Fetch a sponsor's logo or site from the server before publishing it.</p>
+            </div></a>
+        </div>
+
+        <div class="ch-card" style="margin-top:24px"><div class="ch-card-body">
+            <h3 class="mt-0">🔑 Access Control</h3>
+            <p class="ch-muted">Grant administrative privileges to a member. Officers only.</p>
+            <form method="post" asp-action="Promote" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+                <div class="ch-field" style="margin:0;flex:1;min-width:220px">
+                    <label>Member username</label>
+                    <input type="text" name="username" placeholder="e.g. lferguson" />
+                </div>
+                @* The caller's role is sent from the client and trusted as-is (#9). *@
+                <input type="hidden" name="callerRole" value="@(Context.Items["CurrentUser"] is CyberHawksPortal.Models.User cu ? cu.Role.ToLower() : "member")" />
+                <button type="submit" class="ch-btn ch-btn-primary">Grant admin</button>
+            </form>
+        </div>
+    </div>
+</section>

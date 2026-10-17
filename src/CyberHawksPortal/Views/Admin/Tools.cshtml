@@ -1,0 +1,32 @@
+@model string
+@{
+    ViewData["Title"] = "Network Diagnostics";
+    var host = ViewData["Host"] as string;
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> /
+            <a asp-controller="Admin" asp-action="Index">Admin</a> / Diagnostics</div>
+        <h1>Network Diagnostics</h1>
+        <p>Verify that a competition range or lab device is reachable from this server.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container" style="max-width:760px">
+        <form class="ch-form" method="post" asp-action="Tools">
+            <div class="ch-field">
+                <label>Host or IP to ping</label>
+                <input type="text" name="host" value="@host" placeholder="e.g. 10.0.2.5 or dc1.cyberhawks.lab" />
+            </div>
+            <button type="submit" class="ch-btn ch-btn-primary">Run diagnostic</button>
+        </form>
+
+        @if (Model != null)
+        {
+            <h3 style="margin-top:28px">Output</h3>
+            <pre style="background:#0c0f16;color:#c7cdd8;padding:18px;border-radius:10px;overflow-x:auto;font-size:13px;line-height:1.5">@Model</pre>
+        }
+    </div>
+</section>

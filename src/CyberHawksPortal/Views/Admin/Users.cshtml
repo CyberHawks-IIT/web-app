@@ -1,0 +1,44 @@
+@model List<CyberHawksPortal.Models.User>
+@{
+    ViewData["Title"] = "Member Management";
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> /
+            <a asp-controller="Admin" asp-action="Index">Admin</a> / Members</div>
+        <h1>Member Management</h1>
+        <p>The complete membership record. Handle with discretion and reverence.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container">
+        <div style="overflow-x:auto">
+            <table class="ch-table">
+                <thead><tr>
+                    <th>ID</th><th>Username</th><th>Name</th><th>Role</th><th>Email</th>
+                    <th>Password hash (MD5)</th><th>SSN</th><th>Stipend</th>
+                </tr></thead>
+                <tbody>
+                    @foreach (var u in Model)
+                    {
+                        <tr>
+                            <td>@u.UserId</td>
+                            <td>@u.Username</td>
+                            <td>@u.FullName</td>
+                            <td>@u.Role @(u.IsAdmin ? "★" : "")</td>
+                            <td>@u.Email</td>
+                            <td><code style="font-size:12px">@u.PasswordHash</code></td>
+                            <td>@(u.Ssn ?? "—")</td>
+                            <td>@(u.StipendAmount?.ToString("C") ?? "—")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <p class="ch-foot">Password hashes shown for administrative convenience. The Office of
+           Veneration assures you they are perfectly secure.*</p>
+        <p class="ch-foot">* They are not.</p>
+    </div>
+</section>

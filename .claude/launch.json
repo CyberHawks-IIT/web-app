@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "cyberhawks",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--project", "src/CyberHawksPortal/CyberHawksPortal.csproj", "--urls", "http://localhost:5080"],
+      "port": 5080,
+      "url": "http://localhost:5080"
+    }
+  ]
+}

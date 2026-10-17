@@ -1,0 +1,39 @@
+@model List<CyberHawksPortal.Models.AdminCommentRow>
+@{
+    ViewData["Title"] = "Comment Moderation";
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> /
+            <a asp-controller="Admin" asp-action="Index">Admin</a> / Comments</div>
+        <h1>Comment Moderation</h1>
+        <p>Recent discussion across the portal. Author tallies computed live, at some risk.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container">
+        <div class="ch-table-wrap">
+        <table class="ch-table">
+            <thead><tr><th>When</th><th>Author</th><th>Author's total</th><th>On post</th><th>Comment</th></tr></thead>
+            <tbody>
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td>@r.Comment.CreatedAt.ToString("MMM d, yyyy")</td>
+                        <td>@r.Comment.AuthorName</td>
+                        <td>@r.AuthorCommentCount</td>
+                        <td>@(r.Comment.Post?.Title ?? "—")</td>
+                        <td>@r.Comment.Body</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+        @if (!Model.Any())
+        {
+            <p class="ch-muted">No comments to moderate. A peaceful, if quiet, community.</p>
+        }
+    </div>
+</section>

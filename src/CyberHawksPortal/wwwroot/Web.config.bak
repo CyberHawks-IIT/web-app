@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Backup taken during the sql1 migration. TODO (jcrosby): delete before go-live. -->
+<configuration>
+  <connectionStrings>
+    <add name="PortalDb"
+         connectionString="Server=sql1.cyberhawks.lab;Database=CyberHawksPortal;User Id=svc-web;Password=W3bP0rtal!Sv3c2024;TrustServerCertificate=True;MultipleActiveResultSets=True"
+         providerName="Microsoft.Data.SqlClient" />
+  </connectionStrings>
+  <appSettings>
+    <add key="Environment" value="Production" />
+    <add key="AdminEmail" value="admin@cyberhawks.iit.edu" />
+    <add key="MetricsApiKey" value="ch_live_8f2b4c19ae7d42f0b6c1d93e55aa10fe" />
+  </appSettings>
+  <system.webServer>
+    <handlers>
+      <add name="aspNetCore" path="*" verb="*" modules="AspNetCoreModuleV2" resourceType="Unspecified" />
+    </handlers>
+    <aspNetCore processPath="dotnet" arguments=".\CyberHawksPortal.dll" stdoutLogEnabled="false" hostingModel="inprocess" />
+    <security>
+      <requestFiltering>
+        <hiddenSegments>
+          <add segment="FileStore" />
+        </hiddenSegments>
+      </requestFiltering>
+    </security>
+  </system.webServer>
+</configuration>

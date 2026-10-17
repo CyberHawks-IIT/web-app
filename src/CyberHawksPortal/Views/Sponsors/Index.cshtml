@@ -1,0 +1,46 @@
+@model List<CyberHawksPortal.Models.Sponsor>
+@{
+    ViewData["Title"] = "Sponsors";
+    string TierColor(string t) => t switch { "Platinum" => "#6b7686", "Gold" => "#b7791f", _ => "#475267" };
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> / Sponsors &amp; Partners</div>
+        <h1>Sponsors &amp; Partners</h1>
+        <p>The distinguished organizations whose generosity keeps our lab powered, our teams
+           traveling, and our Founder gainfully employed.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container">
+        <div class="ch-grid cols-2">
+            @foreach (var s in Model)
+            {
+                <div class="ch-card"><div class="ch-card-body">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+                        <h3 class="mb-0">@s.Name</h3>
+                        <span class="ch-badge" style="background:@(TierColor(s.Tier))1a;color:@TierColor(s.Tier);border:1px solid @(TierColor(s.Tier))44">@s.Tier</span>
+                    </div>
+                    <p>@s.Blurb</p>
+                    @if (!string.IsNullOrEmpty(s.WebsiteUrl))
+                    {
+                        <a class="ch-btn ch-btn-ghost" href="@s.WebsiteUrl" target="_blank" rel="noopener" style="align-self:flex-start;margin-top:auto">Visit @s.Name →</a>
+                    }
+                </div></div>
+            }
+        </div>
+
+        <div class="ch-center" style="margin-top:44px">
+            <div class="ch-card" style="max-width:620px;margin:0 auto"><div class="ch-card-body ch-center">
+                <div class="ch-card-icon" style="margin:0 auto 14px">🤝</div>
+                <h3>Become a Sponsor</h3>
+                <p>Align your brand with national champions, a nationally recognized program, and
+                   (most importantly) the single greatest founder in collegiate cybersecurity history.</p>
+                <p class="ch-muted" style="font-size:13px">Inquiries handled by our Industry Sponsorship Coordinator,
+                   pursuant to the CyberHawks Standard of Excellence.</p>
+            </div></div>
+        </div>
+    </div>
+</section>

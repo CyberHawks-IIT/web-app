@@ -1,0 +1,38 @@
+@model List<CyberHawksPortal.Models.NewsPost>
+@{
+    ViewData["Title"] = "News & Seminars";
+    string Icon(string c) => c switch { "Spotlight" => "⭐", "Competition" => "🏆", "Seminar" => "🎓", _ => "📣" };
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> / News &amp; Seminars</div>
+        <h1>News &amp; Seminars</h1>
+        <p>Official dispatches, seminar announcements, and competition bulletins — published with
+           the gravitas of a Fortune 500 press office and the budget of a student club.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container">
+        <div class="ch-grid cols-3">
+            @foreach (var p in Model)
+            {
+                <article class="ch-card">
+                    @if (!string.IsNullOrEmpty(p.ImagePath))
+                    {
+                        <a asp-action="Details" asp-route-slug="@p.Slug"><img class="ch-card-img" src="@p.ImagePath" alt="@p.Title"></a>
+                    }
+                    <div class="ch-card-body">
+                        <span class="ch-tag">@Icon(p.Category) @p.Category @(p.IsPinned ? " · 📌 Pinned" : "")</span>
+                        <h3><a asp-action="Details" asp-route-slug="@p.Slug" style="color:inherit">@p.Title</a></h3>
+                        <p>@p.Excerpt</p>
+                        <div class="ch-muted" style="font-size:12.5px;margin-top:auto">
+                            By @(p.Author?.FullName ?? "CyberHawks") · @p.PublishedAt.ToString("MMM d, yyyy")
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>

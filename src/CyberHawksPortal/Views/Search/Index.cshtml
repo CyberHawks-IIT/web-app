@@ -1,0 +1,91 @@
+@model CyberHawksPortal.Models.SearchResults
+@{
+    ViewData["Title"] = "Search";
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> / Search</div>
+        <h1>Portal Search</h1>
+        @if (!string.IsNullOrEmpty(Model.Query))
+        {
+            @* VULN (reflected XSS, SITE_PLAN §5 #22): the query is echoed back unencoded. *@
+            <p>Showing @Model.Total result(s) for: <strong>@Html.Raw(Model.Query)</strong></p>
+        }
+        else
+        {
+            <p>Search members, news, and seminars across the portal.</p>
+        }
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container">
+        <form method="get" asp-controller="Search" asp-action="Index" class="ch-form" style="max-width:640px;margin:0 auto 32px;display:flex;gap:10px;align-items:flex-end">
+            <div class="ch-field" style="flex:1;margin:0">
+                <label>Search the portal</label>
+                <input type="search" name="q" value="@Model.Query" placeholder="e.g. David, CyberForce, seminar…" autofocus />
+            </div>
+            <button type="submit" class="ch-btn ch-btn-primary">Search</button>
+        </form>
+
+        @if (!string.IsNullOrEmpty(Model.Query))
+        {
+            @if (Model.Members.Any())
+            {
+                <h3>Members</h3>
+                <div class="ch-grid cols-3" style="margin-bottom:28px">
+                    @foreach (var u in Model.Members)
+                    {
+                        <a class="ch-card" asp-controller="Members" asp-action="Details" asp-route-id="@u.UserId" style="text-decoration:none">
+                            <div class="ch-card-body">
+                                <h3 style="font-size:16px;margin-bottom:2px">@u.FullName</h3>
+                                <p class="ch-muted mb-0" style="font-size:13px">@(u.Title ?? u.MembershipLevel)</p>
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+            @if (Model.Posts.Any())
+            {
+                <h3>News &amp; Seminars</h3>
+                <div class="ch-grid cols-2">
+                    @foreach (var p in Model.Posts)
+                    {
+                        <a class="ch-card" asp-controller="News" asp-action="Details" asp-route-slug="@p.Slug" style="text-decoration:none">
+                            <div class="ch-card-body">
+                                <span class="ch-tag">@p.Category</span>
+                                <h3 style="font-size:16px">@p.Title</h3>
+                                <p class="ch-muted mb-0" style="font-size:13px">@p.Excerpt</p>
+                            </div>
+                        </a>
+                    }
+                </div>
+            }
+            @if (Model.Total == 0)
+            {
+                <div class="ch-center" style="padding:40px 0">
+                    <p class="ch-lead">No results for "<strong>@Html.Raw(Model.Query)</strong>".</p>
+                    <p class="ch-muted">Have you tried searching for "David"? The results are, frankly, overwhelming.</p>
+                </div>
+            }
+        }
+    </div>
+</section>
+
+@section Scripts {
+<script>
+    // "Recently searched" helper. Reads the human-friendly label from the URL fragment.
+    // VULN (DOM-based XSS, SITE_PLAN §5 #24): location.hash is written to innerHTML unsanitized.
+    (function () {
+        if (location.hash && location.hash.length > 1) {
+            var label = decodeURIComponent(location.hash.substring(1));
+            var box = document.createElement('div');
+            box.className = 'ch-alert info';
+            box.innerHTML = 'Jumped here from: ' + label;
+            var c = document.querySelector('.ch-section .ch-container');
+            if (c) c.insertBefore(box, c.firstChild);
+        }
+    })();
+</script>
+}

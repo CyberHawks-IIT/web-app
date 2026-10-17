@@ -1,0 +1,37 @@
+@model List<CyberHawksPortal.Models.Document>
+@{
+    ViewData["Title"] = "Document Library";
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> / Documents</div>
+        <h1>Document Library</h1>
+        <p>Meeting minutes, seminar slides, competition writeups, and assorted club wisdom.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container">
+        <div style="text-align:right;margin-bottom:18px">
+            <a class="ch-btn ch-btn-primary" asp-action="Upload">⬆️ Upload a document</a>
+        </div>
+        <div class="ch-table-wrap">
+        <table class="ch-table">
+            <thead><tr><th>Title</th><th>Category</th><th>Uploaded by</th><th>Date</th><th></th></tr></thead>
+            <tbody>
+                @foreach (var d in Model)
+                {
+                    <tr>
+                        <td><strong>@d.Title</strong><br /><span class="ch-muted" style="font-size:12.5px">@d.Description</span></td>
+                        <td><span class="ch-tag">@d.Category</span></td>
+                        <td>@d.UploadedBy</td>
+                        <td>@d.CreatedAt.ToString("MMM d, yyyy")</td>
+                        <td><a class="ch-btn ch-btn-ghost" asp-action="Download" asp-route-file="@d.FileName">Download</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>
+</section>

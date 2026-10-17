@@ -1,0 +1,41 @@
+@{
+    Layout = null;
+    var code = ViewData["Code"]?.ToString() ?? "404";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@code · This page has gone rogue</title>
+    <link rel="icon" type="image/svg+xml" href="~/img/triceratops.svg" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="ch-404">
+        <div>
+            <div class="code">@code</div>
+            @if (code == "404")
+            {
+                <h1>This page is classified. Or missing. We honestly aren't sure.</h1>
+                <p>The resource you requested could not be located. Our lead investigator has been
+                   dispatched and is, per protocol, already wearing a tuxedo.</p>
+                <img src="~/img/david-jamesbond.png" alt="Agent 007, licensed to pentest" />
+                <p class="ch-muted" style="color:#9aa3b2">Special Agent D. Arnold, License to Pentest. Clearance: Founder.</p>
+            }
+            else
+            {
+                <h1>Something went sideways.</h1>
+                <p>An error occurred (code @code). The Office of the Founder has been notified and is
+                   handling it with the composure of a man who has defused far worse.</p>
+                <img src="~/img/david-jamesbond.png" alt="Agent 007, licensed to pentest" />
+            }
+            <div style="margin-top:18px">
+                <a class="ch-btn ch-btn-primary" href="/">Return to safety</a>
+                <a class="ch-btn ch-btn-light" href="/members">Visit the Founder instead</a>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/site.js"></script>
+</body>
+</html>

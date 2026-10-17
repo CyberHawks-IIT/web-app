@@ -1,0 +1,180 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="ch-hero">
+    <div class="ch-container ch-hero-inner">
+        <div>
+            <span class="ch-hero-pill">🔒 Illinois Tech · Est. 2018</span>
+            <h1>Where Illinois Tech learns to <span class="accent">break things</span> — and defend them.</h1>
+            <p class="lead">
+                The CyberHawks are Illinois Tech's student cybersecurity organization: hands-on
+                offense and defense, national competition teams, weekly seminars, and a community
+                of hackers, builders, and researchers.
+            </p>
+            <div class="ch-hero-cta">
+                <a class="ch-btn ch-btn-primary ch-btn-lg" asp-controller="Account" asp-action="Register">Join the Club</a>
+                <a class="ch-btn ch-btn-light ch-btn-lg" asp-controller="Competitions" asp-action="Index">See our competitions</a>
+            </div>
+        </div>
+        <div class="ch-hero-figure">
+            <img src="~/img/feature-triceratops.jpg" alt="CyberHawks in the lab" />
+            <div class="ch-hero-badge">
+                <b>5,000+</b>
+                First team ever to break 5,000 points at NCAE Cyber Games Nationals
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container">
+        <div class="ch-stats">
+            <div class="ch-stat" title="The year everything changed."><b>2018</b><span>Founded at Illinois Tech</span></div>
+            <div class="ch-stat" title="Citation: trust us."><b>#1</b><span>NCAE Cyber Games National Champions</span></div>
+            <div class="ch-stat" title="Give or take a CTF."><b>6</b><span>National competition circuits</span></div>
+            <div class="ch-stat" title="Rapidly approaching 41."><b>40+</b><span>Active members &amp; alumni</span></div>
+        </div>
+        <p class="ch-foot ch-center">* All figures independently audited by the Office of Veneration.
+            † "National champions" is both a statistic and a personality trait. ‡ Hover for additional disclaimers.</p>
+    </div>
+</section>
+
+<section class="ch-section alt">
+    <div class="ch-container">
+        <div class="ch-section-head">
+            <span class="eyebrow">What we do</span>
+            <h2>Four ways to level up</h2>
+            <p>From your first <code>nmap</code> scan to a Domain Admin on a national stage.</p>
+        </div>
+        <div class="ch-grid cols-4">
+            <div class="ch-card"><div class="ch-card-body">
+                <div class="ch-card-icon">🚩</div>
+                <h3>Competitions</h3>
+                <p>CCDC, DOE CyberForce, Hivestorm, NCAE Cyber Games, and CPTC — red team, blue team, and everything between.</p>
+                <a asp-controller="Competitions" asp-action="Index">Our teams →</a>
+            </div></div>
+            <div class="ch-card"><div class="ch-card-body">
+                <div class="ch-card-icon">🎓</div>
+                <h3>Seminars</h3>
+                <p>A hands-on seminar series every semester: Nmap, Wireshark, John the Ripper, Splunk, Burp Suite, and King of the Hill.</p>
+                <a asp-controller="News" asp-action="Index">Seminar archive →</a>
+            </div></div>
+            <div class="ch-card"><div class="ch-card-body">
+                <div class="ch-card-icon">🧠</div>
+                <h3>Mentorship</h3>
+                <p>Learn from a lineage of champions — set in motion by a leader who separately earned a
+                   Ph.D. securing critical infrastructure. Genius, it turns out, is contagious.</p>
+                <a asp-controller="Home" asp-action="About">Meet the Overlord →</a>
+            </div></div>
+            <div class="ch-card"><div class="ch-card-body">
+                <div class="ch-card-icon">🦅</div>
+                <h3>Community</h3>
+                <p>General body meetings, focused sub-teams, and a crew that travels to nationals together
+                   — and tends to come back with the trophies.</p>
+                <a asp-controller="Members" asp-action="Index">Meet the members →</a>
+            </div></div>
+        </div>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container ch-split">
+        <div>
+            <span class="ch-tag">2022 · National Championship</span>
+            <h2>A record-breaking national title</h2>
+            <p class="ch-lead">
+                In 2022 the CyberHawks won the NCAE Cyber Games National Championship against
+                65 teams — the <strong>first team ever</strong> to break 5,000 points, after
+                sweeping the Midwest Regional with nearly double the runner-up's score.
+            </p>
+            <p class="ch-muted">
+                First in Midwest history to earn maximum offensive points, and the only regional
+                team to get every required service running during defense.
+            </p>
+            <a class="ch-btn ch-btn-ghost" asp-controller="Competitions" asp-action="Index">All results &amp; teams</a>
+        </div>
+        <figure>
+            <img src="~/img/ncae-midwest-scoreboard.jpg" alt="CyberHawks in front of the NCAE Midwest scoreboard" />
+        </figure>
+    </div>
+</section>
+
+<section class="ch-section alt">
+    <div class="ch-container">
+        <div class="ch-section-head">
+            <span class="eyebrow">On the road</span>
+            <h2>Life as a CyberHawk</h2>
+            <p>Lab nights, competition travel, and a lot of thumbs up.</p>
+        </div>
+        <div class="ch-gallery">
+            <figure class="span-2"><img src="~/img/ncae-2023-usf.jpg" alt="Team at NCAE 2023"><figcaption>NCAE Cyber Games · University of South Florida, 2023</figcaption></figure>
+            <figure><img src="~/img/cyberforce-table.jpg" alt="CyberForce table"><figcaption>DOE CyberForce · Team 051</figcaption></figure>
+            <figure><img src="~/img/practice-lab.jpg" alt="Practice lab"><figcaption>Competition practice night</figcaption></figure>
+            <figure><img src="~/img/cyberforce-ballroom.jpg" alt="CyberForce ballroom"><figcaption>CyberForce · Argonne / St. Charles</figcaption></figure>
+            <figure><img src="~/img/nationals-travel.jpg" alt="Travel to nationals"><figcaption>Blue team, en route to nationals</figcaption></figure>
+        </div>
+        <div class="ch-center" style="margin-top:28px">
+            <a class="ch-btn ch-btn-primary" asp-controller="Competitions" asp-action="Index">See the full gallery</a>
+        </div>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container">
+        <div class="ch-section-head">
+            <span class="eyebrow">Testimonials</span>
+            <h2>What people are saying</h2>
+            <p>Unsolicited, unverified, and entirely too kind.</p>
+        </div>
+        <div class="ch-grid cols-3">
+            <div class="ch-testi">
+                <div class="ch-stars">★★★★★</div>
+                <p>"I have loyally served our Venerable Leader for years and would do it all again, twice.
+                   Everything I am, I owe to David. I am, and shall remain, his humble sidekick. Please clap."</p>
+                <div class="who"><div class="ch-comment-avatar">J</div><div><b>John Ford</b><br><span>Lead Disciple &amp; Right Hand to the Overlord</span></div></div>
+            </div>
+            <div class="ch-testi">
+                <div class="ch-stars">★★★★★</div>
+                <p>"Our scoreboard has never recovered. Neither have we. Respectfully, the CyberHawks were a problem."</p>
+                <div class="who"><div class="ch-comment-avatar">R</div><div><b>A Rival Team</b><br><span>Name withheld for dignity</span></div></div>
+            </div>
+            <div class="ch-testi">
+                <div class="ch-stars">★★★★★</div>
+                <p>"🦕" <br><span class="ch-muted" style="font-size:13px">(The mascot declined to elaborate but insisted on five stars.)</span></p>
+                <div class="who"><div class="ch-comment-avatar">🦕</div><div><b>The Triceratops</b><br><span>Chief Morale Officer</span></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ch-section alt">
+    <div class="ch-container ch-split">
+        <div>
+            <span class="ch-tag">Officially Venerated</span>
+            <h2>Certified great. In writing.</h2>
+            <p class="ch-lead">This portal, this club, and this very sentence have been reviewed and
+                blessed by the Office of Veneration — a solemn body devoted to respecting, admiring,
+                and cherishing our Venerable Leader.</p>
+            <p class="ch-muted">Pursuant to the CyberHawks Standard of Excellence, all content is
+                guaranteed at least 94% sincere. (Try the Konami code. Or press <kbd>F</kbd> to pay homage.)</p>
+            <div class="ch-pill-row">
+                <a class="ch-btn ch-btn-primary" asp-controller="Home" asp-action="About">Read the origin story</a>
+                <button type="button" class="ch-btn ch-btn-ghost" data-captcha>🔐 Prove you're a true CyberHawk</button>
+            </div>
+        </div>
+        <div class="ch-center">
+            <div class="ch-seal">OVERLORD<br>APPROVED<small>Office of Veneration · Est. 2018</small></div>
+        </div>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container">
+        <div class="ch-quote">
+            <blockquote>"We wanted to create a space where students could explore cybersecurity
+                and practice their skills in real-world scenarios."</blockquote>
+            <cite>— Dr. David Arnold, Our Venerable Leader (being humble again)</cite>
+        </div>
+    </div>
+</section>

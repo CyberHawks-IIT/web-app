@@ -1,0 +1,31 @@
+@model string
+@{
+    ViewData["Title"] = "Fetch Sponsor Logo / Link";
+    var url = ViewData["Url"] as string;
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> /
+            <a asp-controller="Admin" asp-action="Index">Admin</a> / Fetch</div>
+        <h1>Sponsor Link Preview</h1>
+        <p>Fetch a sponsor's logo or site from the server to verify it before publishing.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container" style="max-width:760px">
+        <form class="ch-form" method="post" asp-action="Fetch">
+            <div class="ch-field">
+                <label>URL to fetch</label>
+                <input type="text" name="url" value="@url" placeholder="https://sponsor.example.com/logo.png" />
+            </div>
+            <button type="submit" class="ch-btn ch-btn-primary">Fetch</button>
+        </form>
+        @if (Model != null)
+        {
+            <h3 style="margin-top:28px">Response</h3>
+            <pre style="background:#0c0f16;color:#c7cdd8;padding:18px;border-radius:10px;overflow-x:auto;font-size:13px;max-height:420px">@Model</pre>
+        }
+    </div>
+</section>

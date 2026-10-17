@@ -1,0 +1,132 @@
+@model List<CyberHawksPortal.Models.User>
+@{
+    ViewData["Title"] = "Members";
+    var founder = Model.FirstOrDefault(u => u.IsFounder);
+    var legends = Model.Where(u => u.IsLegend && !u.IsFounder).ToList();
+    var officers = Model.Where(u => u.Role == "Officer").ToList();
+    var members = Model.Where(u => u.Role == "Member").ToList();
+}
+
+@functions {
+    string Avatar(CyberHawksPortal.Models.User u, string cls)
+    {
+        if (!string.IsNullOrEmpty(u.AvatarPath))
+            return $"<img class=\"{cls}\" src=\"{u.AvatarPath}\" alt=\"{u.FullName}\">";
+        return $"<div class=\"{cls} ch-avatar-fallback\">{u.Initials}</div>";
+    }
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> / Membership Directory</div>
+        <h1>Membership Directory</h1>
+        <p>An official registry of the distinguished individuals comprising the CyberHawks
+           organization, maintained in accordance with the CyberHawks Standard of Excellence.</p>
+    </div>
+</section>
+
+@if (founder != null)
+{
+<section class="ch-section">
+    <div class="ch-container">
+        <div class="ch-section-head" style="margin-bottom:28px">
+            <span class="eyebrow">Our Venerable Leader</span>
+            <h2>The CyberHawks Overlord, Whom We Respect, Admire &amp; Cherish</h2>
+            <p>A legendary and venerable leader whose benevolent guidance all Hawks gratefully acknowledge.
+               (Also, technically, the founder. But that undersells it.)</p>
+        </div>
+        <div class="ch-founder-card">
+            <a asp-controller="Members" asp-action="Details" asp-route-id="@founder.UserId" class="ch-founder-photo">
+                @Html.Raw(Avatar(founder, "ch-founder-img"))
+                <span class="ch-crown">👑 OVERLORD</span>
+            </a>
+            <div class="ch-founder-body">
+                <span class="ch-tag">Supreme CyberHawk · Employee of the Month, in perpetuity</span>
+                <h3 data-david style="cursor:pointer">@founder.FullName <small style="font-weight:400;color:var(--muted)">(click to pay homage)</small></h3>
+                <p class="ch-muted" style="margin:2px 0 12px">Our Most Venerable Leader · Eternal Patron of the Hawks</p>
+                <p>Respected by all, admired by many, cherished by the entire organization — and
+                   the one standard against which every CyberHawk measures their greatness.</p>
+                <div class="ch-pill-row" style="margin:14px 0">
+                    <span class="ch-badge gold">🏆 National Champion</span>
+                    <span class="ch-badge win">🎓 Ph.D.</span>
+                    <span class="ch-badge win">🔓 Breaker of 'abc123'</span>
+                    <span class="ch-badge gold">👑 Living Legend</span>
+                </div>
+                <a class="ch-btn ch-btn-primary" asp-controller="Members" asp-action="Details" asp-route-id="@founder.UserId">Behold the Overlord's dossier</a>
+            </div>
+        </div>
+    </div>
+</section>
+}
+
+@if (legends.Any())
+{
+<section class="ch-section alt">
+    <div class="ch-container">
+        <div class="ch-section-head">
+            <span class="eyebrow">Hall of Fame</span>
+            <h2>Distinguished Alumni &amp; Honorary Legends</h2>
+            <p>Individuals whose contributions have been formally classified as "a big deal."</p>
+        </div>
+        <div class="ch-grid cols-3">
+            @foreach (var u in legends)
+            {
+                <a class="ch-person" asp-controller="Members" asp-action="Details" asp-route-id="@u.UserId" style="text-decoration:none">
+                    @Html.Raw(Avatar(u, "ch-avatar"))
+                    <div class="ch-person-body">
+                        <h4>@u.FullName</h4>
+                        <div class="role">@u.Title</div>
+                        @if (!string.IsNullOrEmpty(u.Handle)) { <div class="ch-muted" style="font-size:12.5px">@@@u.Handle</div> }
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</section>
+}
+
+<section class="ch-section">
+    <div class="ch-container">
+        <div class="ch-section-head">
+            <span class="eyebrow">Fall 2025</span>
+            <h2>Current Leadership</h2>
+            <p>The duly appointed officers currently entrusted with upholding the Founder's vision.</p>
+        </div>
+        <div class="ch-grid cols-4">
+            @foreach (var u in officers)
+            {
+                <a class="ch-person" asp-controller="Members" asp-action="Details" asp-route-id="@u.UserId" style="text-decoration:none">
+                    @Html.Raw(Avatar(u, "ch-avatar"))
+                    <div class="ch-person-body">
+                        <h4>@u.FullName</h4>
+                        <div class="role">@u.Title</div>
+                        @if (!string.IsNullOrEmpty(u.Headline)) { <p class="ch-muted" style="font-size:11.5px;margin:7px 0 0;line-height:1.4">@u.Headline</p> }
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="ch-section alt">
+    <div class="ch-container">
+        <div class="ch-section-head">
+            <span class="eyebrow">The Roster</span>
+            <h2>General Membership</h2>
+            <p>Esteemed members in good standing. Greatness pending, but trending upward.</p>
+        </div>
+        <div class="ch-grid cols-4">
+            @foreach (var u in members)
+            {
+                <a class="ch-person" asp-controller="Members" asp-action="Details" asp-route-id="@u.UserId" style="text-decoration:none">
+                    @Html.Raw(Avatar(u, "ch-avatar"))
+                    <div class="ch-person-body">
+                        <h4>@u.FullName</h4>
+                        <div class="role">@u.MembershipLevel · Class of @u.GradYear</div>
+                        @if (!string.IsNullOrEmpty(u.Headline)) { <p class="ch-muted" style="font-size:11.5px;margin:7px 0 0;line-height:1.4">@u.Headline</p> }
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</section>

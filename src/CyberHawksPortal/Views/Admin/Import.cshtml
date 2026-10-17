@@ -1,0 +1,31 @@
+@model string
+@{
+    ViewData["Title"] = "Import Roster (XML)";
+    var xml = ViewData["Xml"] as string;
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> /
+            <a asp-controller="Admin" asp-action="Index">Admin</a> / Import</div>
+        <h1>Import Roster (XML)</h1>
+        <p>Bulk-import members or competition results from an XML export.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container" style="max-width:760px">
+        <form class="ch-form" method="post" asp-action="Import">
+            <div class="ch-field">
+                <label>Paste XML</label>
+                <textarea name="xml" rows="8" placeholder="&lt;roster&gt;&lt;member&gt;…&lt;/member&gt;&lt;/roster&gt;">@xml</textarea>
+            </div>
+            <button type="submit" class="ch-btn ch-btn-primary">Parse &amp; preview</button>
+        </form>
+        @if (Model != null)
+        {
+            <h3 style="margin-top:28px">Parsed content</h3>
+            <pre style="background:#0c0f16;color:#c7cdd8;padding:18px;border-radius:10px;overflow-x:auto;font-size:13px">@Model</pre>
+        }
+    </div>
+</section>

@@ -1,0 +1,63 @@
+@model CyberHawksPortal.Models.NewsPost
+@{
+    ViewData["Title"] = Model.Title;
+    var paras = Model.Body.Split("\n\n", StringSplitOptions.RemoveEmptyEntries);
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> /
+            <a asp-controller="News" asp-action="Index">News</a> / @Model.Category</div>
+        <h1>@Model.Title</h1>
+        <p>By @(Model.Author?.FullName ?? "CyberHawks") · @Model.PublishedAt.ToString("MMMM d, yyyy")</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container" style="max-width:800px">
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <img src="@Model.ImagePath" alt="@Model.Title" style="width:100%;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:28px">
+        }
+        @foreach (var para in paras)
+        {
+            <p class="ch-lead" style="color:var(--slate)">@para</p>
+        }
+
+        <hr style="margin:38px 0;border:0;border-top:1px solid var(--line)" />
+
+        <h3>Discussion <span class="ch-muted" style="font-weight:400">(@Model.Comments.Count)</span></h3>
+        <p class="ch-muted" style="font-size:13.5px">Comments are moderated in spirit, if not in practice.</p>
+
+        <div class="ch-comments">
+            @foreach (var c in Model.Comments.OrderBy(c => c.CreatedAt))
+            {
+                <div class="ch-comment">
+                    <div class="ch-comment-avatar">@(c.AuthorName.Length > 0 ? c.AuthorName[0].ToString().ToUpper() : "?")</div>
+                    <div>
+                        <div class="ch-comment-head"><b>@c.AuthorName</b> <span class="ch-muted">· @c.CreatedAt.ToString("MMM d, yyyy")</span></div>
+                        @* VULN (stored XSS, SITE_PLAN §5 #23): comment body rendered unencoded. *@
+                        <div>@Html.Raw(c.Body)</div>
+                    </div>
+                </div>
+            }
+            @if (!Model.Comments.Any())
+            {
+                <p class="ch-muted">No comments yet. Be the first to say something nice about the Founder.</p>
+            }
+        </div>
+
+        <form class="ch-form" style="margin-top:24px" asp-action="Comment" asp-route-slug="@Model.Slug" method="post">
+            <h4 class="mt-0">Leave a comment</h4>
+            <div class="ch-field">
+                <label>Your name</label>
+                <input type="text" name="authorName" placeholder="e.g. A Humble Admirer" />
+            </div>
+            <div class="ch-field">
+                <label>Comment</label>
+                <textarea name="body" rows="3" placeholder="Keep it classy, keep it cheesy." required></textarea>
+            </div>
+            <button type="submit" class="ch-btn ch-btn-primary">Post comment</button>
+        </form>
+    </div>
+</section>

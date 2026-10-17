@@ -1,0 +1,59 @@
+@model CyberHawksPortal.Models.User
+@{
+    ViewData["Title"] = "Join the Club";
+}
+
+<div class="ch-auth-wrap" style="max-width:520px">
+    <div class="ch-center" style="margin-bottom:20px">
+        <h1 style="font-size:26px;margin-bottom:4px">Become a CyberHawk</h1>
+        <p class="ch-muted">Membership is free. Veneration is mandatory but painless.</p>
+    </div>
+
+    @if (ViewData["Error"] != null)
+    {
+        <div class="ch-alert err">@ViewData["Error"]</div>
+    }
+
+    <form class="ch-form" method="post" asp-controller="Account" asp-action="Register" id="reg-form">
+        <div class="ch-field">
+            <label>Username</label>
+            <input type="text" name="Username" required autofocus />
+        </div>
+        <div class="ch-form-row">
+            <div class="ch-field"><label>First name</label><input type="text" name="FirstName" /></div>
+            <div class="ch-field"><label>Last name</label><input type="text" name="LastName" /></div>
+        </div>
+        <div class="ch-field">
+            <label>Email</label>
+            <input type="email" name="Email" placeholder="you@hawk.iit.edu" />
+        </div>
+        <div class="ch-field">
+            <label>Graduation year</label>
+            <input type="number" name="GradYear" min="2024" max="2035" placeholder="2028" />
+        </div>
+        <div class="ch-field">
+            <label>Password <span class="ch-muted" style="font-weight:400">— minimum 8 characters, including a number</span></label>
+            <input type="password" name="password" id="reg-pw" required minlength="8" />
+            <small id="pw-hint" class="ch-muted" style="font-size:12px"></small>
+        </div>
+        <button type="submit" class="ch-btn ch-btn-primary" style="width:100%;justify-content:center">Create account</button>
+        <div class="ch-center" style="margin-top:14px;font-size:13.5px">
+            Already a devotee? <a asp-action="Login">Sign in</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+<script>
+    // Password policy, enforced here with great conviction (and nowhere else).
+    (function () {
+        var pw = document.getElementById('reg-pw'), hint = document.getElementById('pw-hint');
+        if (!pw) return;
+        pw.addEventListener('input', function () {
+            var ok = pw.value.length >= 8 && /\d/.test(pw.value);
+            hint.textContent = ok ? '✓ The Office of Veneration approves this password.' : 'Needs 8+ characters and a number.';
+            hint.style.color = ok ? 'var(--ok)' : 'var(--muted)';
+        });
+    })();
+</script>
+}

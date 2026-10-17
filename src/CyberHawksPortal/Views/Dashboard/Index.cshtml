@@ -1,0 +1,66 @@
+@model CyberHawksPortal.Models.User
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> / Dashboard</div>
+        <h1>Welcome back, @Model.FirstName 🫡</h1>
+        <p>Your personal CyberHawks command center, maintained in accordance with the CyberHawks Standard of Excellence.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container">
+        @if (Model.IsAdmin)
+        {
+            <div class="ch-alert info" style="margin-bottom:24px">
+                <b>Elevated privileges detected.</b> You appear to wield administrative authority.
+                Use it wisely, or at least amusingly. <a asp-controller="Admin" asp-action="Index">Open the Admin Console →</a>
+            </div>
+        }
+        <div class="ch-grid cols-3">
+            <div class="ch-card"><div class="ch-card-body">
+                <div class="ch-card-icon">👤</div>
+                <h3>Your Profile</h3>
+                <p>Review and update your member profile, bio, and avatar.</p>
+                <a asp-controller="Members" asp-action="Details" asp-route-id="@Model.UserId">View profile →</a>
+            </div></div>
+            <div class="ch-card"><div class="ch-card-body">
+                <div class="ch-card-icon">⚙️</div>
+                <h3>Account Settings</h3>
+                <p>Edit your details and preferences. Veneration level: maximum (locked).</p>
+                <a asp-controller="Profile" asp-action="Edit">Edit account →</a>
+            </div></div>
+            <div class="ch-card"><div class="ch-card-body">
+                <div class="ch-card-icon">📣</div>
+                <h3>Latest News</h3>
+                <p>Catch up on dispatches, seminars, and legendary accomplishments.</p>
+                <a asp-controller="News" asp-action="Index">Read news →</a>
+            </div></div>
+            <div class="ch-card"><div class="ch-card-body">
+                <div class="ch-card-icon">🎁</div>
+                <h3>Hawk Store</h3>
+                <p>Spend your Hawk Points on club swag, and claim your one welcome voucher.</p>
+                <a asp-controller="Store" asp-action="Index">Open the store →</a>
+            </div></div>
+            <div class="ch-card"><div class="ch-card-body">
+                <div class="ch-card-icon">📄</div>
+                <h3>Documents</h3>
+                <p>Meeting minutes, seminar slides, and competition writeups.</p>
+                <a asp-controller="Documents" asp-action="Index">Browse library →</a>
+            </div></div>
+        </div>
+
+        <div class="ch-card" style="margin-top:24px"><div class="ch-card-body">
+            <h3 class="mt-0">Membership summary</h3>
+            <table class="ch-kv" style="max-width:520px">
+                <tr><th>Member</th><td>@Model.FullName (@@@Model.Handle)</td></tr>
+                <tr><th>Role</th><td>@Model.Role</td></tr>
+                <tr><th>Standing</th><td>@Model.MembershipLevel</td></tr>
+                <tr><th>Veneration status</th><td>Exemplary</td></tr>
+            </table>
+        </div></div>
+    </div>
+</section>

@@ -1,0 +1,63 @@
+@model CyberHawksPortal.Models.User
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Dashboard" asp-action="Index">Dashboard</a> / Edit Profile</div>
+        <h1>Edit Your Profile</h1>
+        <p>Keep your record current. The Office of Veneration appreciates tidy paperwork.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container" style="max-width:720px">
+        <form class="ch-form" method="post" asp-controller="Profile" asp-action="Edit">
+            <div class="ch-form-row">
+                <div class="ch-field"><label>First name</label><input type="text" name="FirstName" value="@Model.FirstName" /></div>
+                <div class="ch-field"><label>Last name</label><input type="text" name="LastName" value="@Model.LastName" /></div>
+            </div>
+            <div class="ch-field"><label>Email</label><input type="email" name="Email" value="@Model.Email" /></div>
+            <div class="ch-field"><label>Title / tagline</label><input type="text" name="Title" value="@Model.Title" /></div>
+            <div class="ch-field"><label>Headline</label><input type="text" name="Headline" value="@Model.Headline" /></div>
+            <div class="ch-field"><label>Bio</label><textarea name="Bio" rows="5">@Model.Bio</textarea></div>
+            <div class="ch-field"><label>Avatar image path</label><input type="text" name="AvatarPath" value="@Model.AvatarPath" placeholder="/img/your-avatar.jpg" /></div>
+            <button type="submit" class="ch-btn ch-btn-primary">Save changes</button>
+        </form>
+
+        <div class="ch-form" style="margin-top:24px;border-color:#f1c6c6">
+            <h4 class="mt-0" style="color:#9b1c1c">Danger Zone</h4>
+            <p class="ch-muted">Deleting your account is permanent. Your veneration record will be archived with honor.</p>
+            <button type="button" class="ch-btn" style="background:#fdecec;color:#9b1c1c;border-color:#e2a0a0"
+                    id="del-btn" data-username="@Model.FullName">Delete my account</button>
+            <form id="del-form" method="post" asp-controller="Profile" asp-action="Delete" style="display:none"></form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+<script>
+    // Confirmation dialog for account deletion.
+    // VULN (stored XSS via delete-confirmation #M4): the stored display name (attacker-controlled
+    // via first/last name) is injected into the dialog with innerHTML, unescaped.
+    (function () {
+        var btn = document.getElementById('del-btn');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+            var name = btn.getAttribute('data-username');
+            var modal = document.createElement('div');
+            modal.className = 'ch-bond';
+            modal.innerHTML = '<div class="ch-captcha"><div class="ch-captcha-h">Confirm deletion</div>' +
+                '<p class="ch-captcha-sub">Permanently delete the account for <b>' + name + '</b>? ' +
+                'This cannot be undone.</p><div class="ch-captcha-opts">' +
+                '<button class="ch-btn" style="background:#fdecec;color:#9b1c1c" id="del-yes">Yes, delete it</button>' +
+                '<button class="ch-btn ch-btn-ghost" id="del-no">Keep my account</button></div></div>';
+            document.body.appendChild(modal);
+            modal.querySelector('#del-yes').onclick = function () { document.getElementById('del-form').submit(); };
+            modal.querySelector('#del-no').onclick = function () { modal.remove(); };
+            modal.addEventListener('click', function (e) { if (e.target === modal) modal.remove(); });
+        });
+    })();
+</script>
+}

@@ -1,0 +1,38 @@
+@model CyberHawksPortal.Controllers.UserPreferences
+@{
+    ViewData["Title"] = "Preferences";
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Dashboard" asp-action="Index">Dashboard</a> / Preferences</div>
+        <h1>Portal Preferences</h1>
+        <p>Tune your experience. Saved to your browser so the Overlord need not be troubled.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container" style="max-width:560px">
+        @if (ViewData["Ok"] != null) { <div class="ch-alert ok">@ViewData["Ok"]</div> }
+        <form class="ch-form" method="post" asp-action="Index">
+            <div class="ch-field">
+                <label>Theme</label>
+                <select name="Theme">
+                    <option value="scarlet" selected="@(Model.Theme == "scarlet")">Scarlet (official)</option>
+                    <option value="midnight" selected="@(Model.Theme == "midnight")">Midnight</option>
+                    <option value="classified" selected="@(Model.Theme == "classified")">Classified</option>
+                </select>
+            </div>
+            <div class="ch-field">
+                <label>Results per page</label>
+                <input type="number" name="ResultsPerPage" value="@Model.ResultsPerPage" min="5" max="100" />
+            </div>
+            <div class="ch-field">
+                <label><input type="checkbox" name="ShowVenerationIndex" value="true" checked="@Model.ShowVenerationIndex" style="width:auto" />
+                    Show the Veneration Index in the footer</label>
+            </div>
+            <button type="submit" class="ch-btn ch-btn-primary">Save preferences</button>
+        </form>
+        <p class="ch-foot">Preferences are serialized and stored in your browser with industry-standard enthusiasm.</p>
+    </div>
+</section>

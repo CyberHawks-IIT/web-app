@@ -1,0 +1,55 @@
+@{
+    ViewData["Title"] = "Upload Document";
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> /
+            <a asp-controller="Documents" asp-action="Index">Documents</a> / Upload</div>
+        <h1>Upload a Document</h1>
+        <p>Contribute minutes, slides, or a writeup to the club archive.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container" style="max-width:620px">
+        @if (ViewData["Error"] != null) { <div class="ch-alert err">@ViewData["Error"]</div> }
+        @if (ViewData["Ok"] != null) { <div class="ch-alert ok">@ViewData["Ok"]</div> }
+
+        <form class="ch-form" method="post" asp-action="Upload" enctype="multipart/form-data" id="up-form">
+            <div class="ch-field">
+                <label>Title</label>
+                <input type="text" name="title" placeholder="e.g. Spring Kickoff Slides" />
+            </div>
+            <div class="ch-field">
+                <label>File <span class="ch-muted" style="font-weight:400">— documents and images only. HTML files are not permitted for security reasons.</span></label>
+                <input type="file" name="upload" id="up-file" accept=".txt,.md,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.png,.jpg,.jpeg,.gif" required />
+                <small id="up-hint" class="ch-muted" style="font-size:12px"></small>
+            </div>
+            <button type="submit" class="ch-btn ch-btn-primary">Upload</button>
+        </form>
+        <p class="ch-foot">Uploads are scanned for quality, relevance, and sufficient reverence.</p>
+    </div>
+</section>
+
+@section Scripts {
+<script>
+    // Client-side file-type guard. Rigorously enforced here in the browser, and absolutely
+    // nowhere on the server.
+    (function () {
+        var form = document.getElementById('up-form'),
+            file = document.getElementById('up-file'),
+            hint = document.getElementById('up-hint');
+        var blocked = ['html', 'htm', 'xhtml', 'shtml'];
+        form.addEventListener('submit', function (e) {
+            var name = (file.value || '').toLowerCase();
+            var ext = name.split('.').pop();
+            if (blocked.indexOf(ext) !== -1) {
+                e.preventDefault();
+                hint.textContent = '⛔ HTML files are not allowed. Nice try.';
+                hint.style.color = '#9b1c1c';
+            }
+        });
+    })();
+</script>
+}

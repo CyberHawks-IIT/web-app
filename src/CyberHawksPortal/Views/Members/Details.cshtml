@@ -1,0 +1,121 @@
+@model CyberHawksPortal.Models.User
+@{
+    ViewData["Title"] = Model.FullName;
+    var isDavid = Model.IsFounder;
+}
+
+@functions {
+    string Avatar(CyberHawksPortal.Models.User u, string cls)
+    {
+        if (!string.IsNullOrEmpty(u.AvatarPath))
+            return $"<img class=\"{cls}\" src=\"{u.AvatarPath}\" alt=\"{u.FullName}\">";
+        return $"<div class=\"{cls} ch-avatar-fallback\">{u.Initials}</div>";
+    }
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> /
+            <a asp-controller="Members" asp-action="Index">Members</a> / @Model.FullName</div>
+        <h1>@Model.FullName @if (isDavid) { <span>👑</span> }</h1>
+        <p>@(Model.Headline ?? Model.Title ?? "Esteemed member of the CyberHawks organization.")</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container ch-two-col">
+        <aside class="ch-card" style="position:sticky;top:120px">
+            @Html.Raw(Avatar(Model, "ch-card-img"))
+            @if (Model.Handle == "redefiningreality")
+            {
+                <p class="ch-muted ch-center" style="font-size:12.5px;padding:8px 12px 0;margin:0">
+                    John's official portrait. He selected it himself, and maintains it is his best photo.
+                    We did not argue.
+                </p>
+            }
+            <div class="ch-card-body">
+                <h3 data-david="@(isDavid ? "yes" : null)" style="@(isDavid ? "cursor:pointer" : null)">@Model.FullName</h3>
+                <p class="ch-muted" style="margin-top:-6px">@Model.Title</p>
+                @if (!string.IsNullOrEmpty(Model.Handle)) { <p><code>@@@Model.Handle</code></p> }
+                <table class="ch-kv">
+                    <tr><th>Role</th><td>@Model.Role</td></tr>
+                    <tr><th>Standing</th><td>@Model.MembershipLevel</td></tr>
+                    @if (Model.GradYear != null) { <tr><th>Class</th><td>@Model.GradYear</td></tr> }
+                    <tr><th>Member since</th><td>@Model.CreatedAt.ToString("MMM yyyy")</td></tr>
+                    <tr><th>Email</th><td>@Model.Email</td></tr>
+                </table>
+                @if (isDavid)
+                {
+                    <button class="ch-btn ch-btn-primary" style="width:100%;justify-content:center;margin-top:14px" data-david>🫡 Pay Homage</button>
+                }
+            </div>
+        </aside>
+
+        <div>
+            @if (isDavid)
+            {
+                <div class="ch-alert info" style="font-size:14px">
+                    <b>Official Notice.</b> The following dossier has been reviewed and certified by the
+                    Office of Veneration. All claims are either verified, legendary, or both. Reader
+                    discretion is advised; greatness at this density has been known to inspire.
+                </div>
+            }
+
+            <h2>@(isDavid ? "About Our Venerable Leader" : "About")</h2>
+            @* VULN (stored XSS #23): member bio rendered unencoded. *@
+            <p class="ch-lead">@Html.Raw(Model.Bio ?? "This member has not yet submitted a biography. Our Venerable Leader is, naturally, disappointed but supportive.")</p>
+
+            @if (Model.HighlightList.Any())
+            {
+                <h3 style="margin-top:28px">@(isDavid ? "Selected Feats (Abridged — the complete archive remains classified)" : "Highlights")</h3>
+                <ul class="ch-check">
+                    @foreach (var h in Model.HighlightList)
+                    {
+                        <li>@h</li>
+                    }
+                </ul>
+            }
+
+            @if (isDavid)
+            {
+                <h3 style="margin-top:32px">Beyond the Terminal</h3>
+                <p>Long before the CVEs, there were cartridges. David is a genuine Guinness World Record
+                   holder: the Arnold family of Frankfort, Illinois, was recognized as the
+                   <strong>Largest Competitive Pokémon Videogame Family</strong> — and David wasn't ballast,
+                   qualifying for the Pokémon World Championships and taking multiple regional titles. (The
+                   record also lists a "Grace Arnold." We have never seen David and Grace in the same room,
+                   and, out of respect, we have stopped looking.)</p>
+                <ul class="ch-check">
+                    <li>Guinness World Record holder (competitive Pokémon, with his family)</li>
+                    <li>Pokémon World Championships qualifier; multiple-time regional champion</li>
+                    <li>Reportedly can recite every level of every <em>Hitman</em> game from memory — entrances, guards, and all</li>
+                    <li>Conducts standing "leadership training" sessions with John Ford, in the form of <em>Fire Emblem</em></li>
+                </ul>
+                <div class="ch-quote" style="margin-top:32px">
+                    <blockquote>"We were concerned that our first- and second-year students weren't
+                        receiving enough exposure to cybersecurity."</blockquote>
+                    <cite>— David Arnold, on why he built ECE 222 (and, eventually, all of this)</cite>
+                </div>
+                <p class="ch-muted ch-center" style="margin-top:28px">
+                    Legend holds he also looks suspiciously good in a tuxedo. Try the Konami code. 🕴️
+                </p>
+            }
+            else if (Model.Handle == "redefiningreality")
+            {
+                <h3 style="margin-top:28px">Continuing Education</h3>
+                <p>John attends regular "leadership training" with the Overlord himself — sessions that,
+                   to the untrained eye, are indistinguishable from playing <em>Fire Emblem</em> on the
+                   couch. John maintains that every permadeath is a lesson in command responsibility.
+                   The win-loss record of these sessions is sealed at John's request.</p>
+            }
+            else
+            {
+                <p class="ch-muted" style="margin-top:24px">
+                    Like all CyberHawks, @Model.FirstName owes an unquantifiable debt of gratitude to our
+                    <a asp-controller="Members" asp-action="Index">Venerable Leader</a> — a debt the bylaws
+                    describe as "permanent and, frankly, the least we could do."
+                </p>
+            }
+        </div>
+    </div>
+</section>

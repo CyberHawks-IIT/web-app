@@ -1,0 +1,117 @@
+@{
+    ViewData["Title"] = "Competitions";
+}
+
+<section class="ch-page-head">
+    <div class="ch-container">
+        <div class="ch-breadcrumb"><a asp-controller="Home" asp-action="Index">Home</a> / Competitions</div>
+        <h1>Competition Teams</h1>
+        <p>Red team, blue team, and CTF squads that put Illinois Tech on the national cybersecurity map.</p>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container">
+        <div class="ch-grid cols-3">
+            <div class="ch-card"><div class="ch-card-body">
+                <span class="ch-tag">Blue Team · flagship</span>
+                <h3>NCAE Cyber Games</h3>
+                <p>A build-and-defend competition run by the NSA-designated Centers of Academic
+                   Excellence. We've taken the Midwest Regional three years running (2022–2024) and
+                   turned that into a national title in 2022.</p>
+                <span class="ch-badge gold">🏆 National Champions 2022</span>
+            </div></div>
+            <div class="ch-card"><div class="ch-card-body">
+                <span class="ch-tag">Blue Team</span>
+                <h3>DOE CyberForce</h3>
+                <p>The Department of Energy's defend-the-grid event. In the 2023 edition near Chicago we
+                   fielded three full teams (CyberHawks, Talons, and Tailwind); the lead squad placed
+                   12th out of 107 and took 2nd for usability.</p>
+                <span class="ch-badge win">12th of 107 · 2023</span>
+            </div></div>
+            <div class="ch-card"><div class="ch-card-body">
+                <span class="ch-tag">Blue Team</span>
+                <h3>CCDC</h3>
+                <p>The Collegiate Cyber Defense Competition — keep flaky business services alive while a
+                   professional red team tears through them. Third in the Illinois state round in both
+                   2023 and 2024, with a run through the Midwest Wildcard.</p>
+                <span class="ch-badge win">3rd · Illinois (2023, 2024)</span>
+            </div></div>
+            <div class="ch-card"><div class="ch-card-body">
+                <span class="ch-tag">Red Team</span>
+                <h3>CPTC</h3>
+                <p>The Collegiate Penetration Testing Competition: a simulated client engagement, graded
+                   as much on the report as the shells. Third at the Great Lakes Regional — coached, as it
+                   happens, by John Ford.</p>
+                <span class="ch-badge win">3rd · Great Lakes</span>
+            </div></div>
+            <div class="ch-card"><div class="ch-card-body">
+                <span class="ch-tag">Blue Team · fall</span>
+                <h3>Hivestorm</h3>
+                <p>A one-day defensive hardening competition — lock down a set of misconfigured systems
+                   against a scoring engine. Our fall proving ground for first-time blue-teamers.</p>
+                <span class="ch-badge win">Fall staple</span>
+            </div></div>
+            <div class="ch-card"><div class="ch-card-body">
+                <span class="ch-tag">Open practice</span>
+                <h3>Weekly Scrimmages</h3>
+                <p>Structured practice runs open to every member, whether or not you're rostered for the
+                   real thing. The fastest way to find out whether you're red team, blue team, or deeply
+                   both.</p>
+                <span class="ch-badge win">All welcome</span>
+            </div></div>
+        </div>
+
+        <div class="ch-card" style="margin-top:28px"><div class="ch-card-body">
+            <span class="ch-tag">The 2022 National Champions</span>
+            <h3 class="mt-0">The roster that broke 5,000</h3>
+            <p>Sixty-five teams, fifty-five colleges, one scoreboard record that still stands in the
+               books. The championship squad: <strong>Sajeel Mehta</strong> (team lead), Mohammed Chisti,
+               My Dinh, <strong>John Ford</strong>, Sarah Hugue, Ryan Timothy Rishab, Kreetha Sintawee,
+               Aurélien Agniel, and Wyatt Stevens — who took home the CyberHawks Team Leadership Award at
+               both the regional and the national. Defense held every required service online; offense
+               swept the challenge board.</p>
+        </div></div>
+    </div>
+</section>
+
+<section class="ch-section alt">
+    <div class="ch-container">
+        <div class="ch-section-head">
+            <span class="eyebrow">Track record</span>
+            <h2>Results at a glance</h2>
+        </div>
+        <div class="ch-table-wrap">
+        <table class="ch-table">
+            <thead><tr><th>Year</th><th>Competition</th><th>Stage</th><th>Result</th></tr></thead>
+            <tbody>
+                <tr><td>2024</td><td>NCAE Cyber Games</td><td>Midwest Regional</td><td>🥇 1st place</td></tr>
+                <tr><td>2024</td><td>CCDC</td><td>Illinois State</td><td>🥉 3rd place</td></tr>
+                <tr><td>2023</td><td>NCAE Cyber Games</td><td>National Invitational</td><td>🥉 3rd place</td></tr>
+                <tr><td>2023</td><td>DOE CyberForce</td><td>National</td><td>12th overall · 2nd usability</td></tr>
+                <tr><td>2023</td><td>CPTC</td><td>Great Lakes Regional</td><td>🥉 3rd of 10 schools</td></tr>
+                <tr><td>2022</td><td>NCAE Cyber Games</td><td>National Championship</td><td>🏆 Champions — first team past 5,000 pts</td></tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</section>
+
+<section class="ch-section">
+    <div class="ch-container">
+        <div class="ch-section-head">
+            <span class="eyebrow">Gallery</span>
+            <h2>From the road</h2>
+        </div>
+        <div class="ch-gallery">
+            <figure class="span-2"><img src="~/img/ncae-midwest-scoreboard.jpg" alt="Midwest scoreboard"><figcaption>NCAE CyberGames Midwest — on the scoreboard</figcaption></figure>
+            <figure><img src="~/img/ncae-2023-usf.jpg" alt="NCAE 2023 USF"><figcaption>NCAE Nationals · USF, 2023</figcaption></figure>
+            <figure><img src="~/img/cyberforce-table.jpg" alt="CyberForce table"><figcaption>CyberForce · Team 051</figcaption></figure>
+            <figure><img src="~/img/cyberforce-team-placard.jpg" alt="CyberForce team"><figcaption>CyberForce · Illinois Tech 32</figcaption></figure>
+            <figure><img src="~/img/cyberforce-lounge.jpg" alt="CyberForce lounge"><figcaption>Prepping between rounds</figcaption></figure>
+            <figure><img src="~/img/competition-2019.jpg" alt="2019 competition"><figcaption>Early days · 2019</figcaption></figure>
+            <figure><img src="~/img/practice-lab.jpg" alt="Practice lab"><figcaption>Practice night in the lab</figcaption></figure>
+            <figure><img src="~/img/nationals-travel.jpg" alt="Travel"><figcaption>Blue team travels</figcaption></figure>
+        </div>
+    </div>
+</section>
