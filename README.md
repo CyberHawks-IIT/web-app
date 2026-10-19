@@ -12,6 +12,12 @@ It is built to be attacked. Every "bug" below is deliberate.
 > deployed inside the isolated `cyberhawks.lab` range for training. Do not host
 > it on any network you care about, and don't reuse any of its code.
 
+> ## 📋 [Web portal briefing →](https://claude.ai/artifact/QCar6jLj7s2nAMHdkUt2H6)
+> **See exactly what you're attacking.** The target host, the starter member
+> account you get on day one, and the full list of findings to hunt — across
+> authentication, access control, injection, client-side, file/data exposure,
+> and business logic. This is also the handout for whoever attacks the portal.
+
 ## What's in it
 
 A full employee portal — login, member directory and profiles, news with
